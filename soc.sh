@@ -22,16 +22,13 @@ sudo apt install hydra -y
 
 #Install metasploit framework which will help the user later to probe a particular vulneranility which will be explained further in option -d of the function scanattacker
 sudo apt-get install metasploit-framework -y
-}
-
-#Call the installation function for updates, upgrades and installations
-inst
 
 #Utilise crunch which comes in preinstalled with Kali Linux to generate lists
 #Create a list of users which are needed for some attacks
 crunch 4 4 abcdefghijklmnopqrstuvwx > user.lst
 #Create a list of paswords which are needed for some attacks
 crunch 4 4 abcde > password.lst
+}
 
 #A function which allows the user to conduct nmap and masscans , and also carry out hydra and msfconsole smb brute force attacks
 function scanattacker()
@@ -156,6 +153,9 @@ case $choices in
 esac
 	
 }
+
+#Call the installation function for updates, upgrades and installations
+inst
 
 #Call the function which allows the user to conduct nmap and masscans ,and also carry out hydra and msfconsole smb brute force attacks
 scanattacker
