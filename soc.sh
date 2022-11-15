@@ -11,16 +11,20 @@ sudo apt update -y
 
 #Install nmap a network scanner to detect hosts and services available on the local area network
 #Nmap can be used by hackers to detect uncontrolled ports on a system
+#Credits: Information for nmap installation and usage - https://www.kali.org/tools/nmap/
 sudo apt-get install nmap -y
 
 #Install masscan is a network port scanner similar in application to nmap but fast and able to scan in stealth
+#Credits: Information for masscan installation and usage - https://github.com/robertdavidgraham/masscan
 sudo apt-get install masscan -y
 
 #Install hydra an open source tool to conduct various kind of brute force attacks 
 #A login cracker which supports various protocols such as ftp ,ssh rdp etc 
+#Credits: Information for hydra installation  - https://www.kali.org/tools/hydra/
 sudo apt install hydra -y
 
 #Install metasploit framework which will help the user later to probe a particular vulneranility which will be explained further in option -d of the function scanattacker
+#Credits: Information on metasploit installation - https://www.fosslinux.com/48112/install-metasploit-kali-linux.htm
 sudo apt-get install metasploit-framework -y
 
 #Utilise crunch which comes in preinstalled with Kali Linux to generate lists
@@ -135,6 +139,7 @@ case $choices in
 		echo 'exit' >> smb_script.rc
 		
 		#Conduct a smb attack on msfconsole ( metasploit ) by reading the smb_script 
+		#Credits: Executing msfconsole smb attack - https://www.offensive-security.com/metasploit-unleashed/smb-login-check/
 		#The scan results are kept in the msf_smb_bf_results text file 
 		#Result file can be found in the same working directory where this script is run
 		sudo msfconsole -r smb_script.rc -o msf_smb_bf_results.txt
