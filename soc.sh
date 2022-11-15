@@ -24,31 +24,46 @@ sudo apt install hydra -y
 sudo apt-get install metasploit-framework -y
 }
 
+#Call the installation function for updates, upgrades and installations
 inst
 
 #Utilise crunch which comes in preinstalled with Kali Linux to generate lists
-#Create a list of users which is needed for some attacks
+#Create a list of users which are needed for some attacks
 crunch 4 4 abcdefghijklmnopqrstuvwx > user.lst
+#Create a list of paswords which are needed for some attacks
 crunch 4 4 abcde > password.lst
 
+#A function which allows the user to conduct nmap and masscans , and also carry out hydra and msfconsole smb brute force attacks
 function scanattacker()
 {
 
+#Display all the options users can run
 read -p "Would you like to a) Run a nmap scan b) Run a masscan c) Run a hydra attack  d) mfsconsole e) exit : " choices 
 
 case $choices in 
 	
-	a)
+	a)	#User needs to enter the the target ip address they would like to do nmap scan
 		echo 'Enter ip address to do a nmap'
+		#Read ipaddress provided by user and store it in a variable
 		read ip_addr
 		echo "$ip_addr"
+		
+		#Conduct a namp scan on 1001 ports on the ipaddress provided by the user
+		#The scan reuslts are kept in the nmap_scanresults text file which
+		#Results can be found in the same working directory where this script is run
 		sudo nmap -p0-1000 $ip_addr >>nmap_scanresults.txt
 		
+		#Check if the nmap command has been executed succesfully. 
+		#If executed successfully then it will be recorded as such in the socchecker log (txt) file
+		#If the command failed it will also record it within the socchecker log (txt) file 
+		#socchecker file acts as a log file where all scans and attacks are logged in with their execution status
 		if [ $? -eq 0 ]; then
 			echo `date` "sudo nmap -p0-1000 $ip_addr Executed" >>socchecker.txt
 		else
 			echo `date` "sudo nmap -p0-1000 $ip_addr Failed" >>socchecker.txt
 		fi
+		
+		#Call the function again so that user can utlise other scans or attacks
 		scanattacker
 	;;
 	
